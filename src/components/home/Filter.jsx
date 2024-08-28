@@ -1,51 +1,178 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import TruckCard from "./TruckCard";
 
-export default function Filter() {
+export default function FilterAndCards() {
+  const [trucks, setTrucks] = useState([]);
   const [names, setNames] = useState([]);
   const [shasi, setShasi] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [filteredTrucks, setFilteredTrucks] = useState([]);
 
-  const getData = () => {
+  useEffect(() => {
     axios
       .get("https://ets2-truck-api.vercel.app/api/trucks")
       .then((res) => {
+        setTrucks(res.data);
         const allNames = res.data.map((truck) => truck.name);
         const allShasi = res.data.map((truck) => truck.shasi);
-        const uniqueNames = [...new Set(allNames)];
-        const uniqueShasi = [...new Set(allShasi)];
-        setNames(uniqueNames);
-        setShasi(uniqueShasi);
+        setNames([...new Set(allNames)]);
+        setShasi([...new Set(allShasi)]);
+        setFilteredTrucks(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-  getData();
+  }, []);
 
-  const handleFilterButtonClick = (selectedCategory) => {};
+  const handleFilterButtonClick = (selectedCategory) => {
+    if (selectedFilters.includes(selectedCategory)) {
+      setSelectedFilters(
+        selectedFilters.filter((el) => el !== selectedCategory)
+      );
+    } else {
+      setSelectedFilters([...selectedFilters, selectedCategory]);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedFilters.length > 0) {
+      setFilteredTrucks(
+        trucks.filter((truck) => {
+          const matchesHrFilter =
+            (selectedFilters.includes("from 400hr") && truck.hr >= 400) ||
+            (selectedFilters.includes("from 500hr") && truck.hr >= 500) ||
+            (selectedFilters.includes("from 600hr") && truck.hr >= 600);
+          const matchesHmFilter =
+            (selectedFilters.includes("from 2000Hm") && truck.hm >= 2000) ||
+            (selectedFilters.includes("from 3000Hm") && truck.hm >= 3000);
+          const matchesPriceFilter =
+            selectedFilters.includes("up to 200k") && truck.price <= 200000;
+          const matchesTankFilter =
+            (selectedFilters.includes("from 800l") && truck.tank >= 800) ||
+            (selectedFilters.includes("from 1100l") && truck.tank >= 1100);
+          const matchesOtherFilters =
+            selectedFilters.includes(truck.name) ||
+            selectedFilters.includes(truck.shasi);
+
+          return (
+            matchesPriceFilter ||
+            matchesOtherFilters ||
+            matchesHrFilter ||
+            matchesHmFilter ||
+            matchesTankFilter
+          );
+        })
+      );
+    } else {
+      setFilteredTrucks(trucks);
+    }
+  }, [selectedFilters, trucks]);
 
   return (
     <div>
-      <ul>
+      <div>
+        <button
+          onClick={() => handleFilterButtonClick("up to 200k")}
+          className={`border-black border-2 rounded ${
+            selectedFilters.includes("up to 200k") ? "bg-gray-300" : ""
+          }`}
+        >
+          Up to $200k
+        </button>
+        <button
+          onClick={() => handleFilterButtonClick("from 400hr")}
+          className={`border-black border-2 rounded ${
+            selectedFilters.includes("from 400hr") ? "bg-gray-300" : ""
+          }`}
+        >
+          from 400 hr
+        </button>
+        <button
+          onClick={() => handleFilterButtonClick("from 500hr")}
+          className={`border-black border-2 rounded ${
+            selectedFilters.includes("from 500hr") ? "bg-gray-300" : ""
+          }`}
+        >
+          from 500 hr
+        </button>
+        <button
+          onClick={() => handleFilterButtonClick("from 600hr")}
+          className={`border-black border-2 rounded ${
+            selectedFilters.includes("from 600hr") ? "bg-gray-300" : ""
+          }`}
+        >
+          from 600 hr
+        </button>
+        <button
+          onClick={() => handleFilterButtonClick("from 2000Hm")}
+          className={`border-black border-2 rounded ${
+            selectedFilters.includes("from 2000Hm") ? "bg-gray-300" : ""
+          }`}
+        >
+          from 2000 Hm
+        </button>
+        <button
+          onClick={() => handleFilterButtonClick("from 3000Hm")}
+          className={`border-black border-2 rounded ${
+            selectedFilters.includes("from 3000Hm") ? "bg-gray-300" : ""
+          }`}
+        >
+          from 3000 Hm
+        </button>
+        <button
+          onClick={() => handleFilterButtonClick("from 800l")}
+          className={`border-black border-2 rounded ${
+            selectedFilters.includes("from 800l") ? "bg-gray-300" : ""
+          }`}
+        >
+          from 800 L
+        </button>
+        <button
+          onClick={() => handleFilterButtonClick("from 1100l")}
+          className={`border-black border-2 rounded ${
+            selectedFilters.includes("from 1100l") ? "bg-gray-300" : ""
+          }`}
+        >
+          from 1100 L
+        </button>
         {names.map((name, index) => (
           <button
-            onClick={handleFilterButtonClick}
-            className=" border-black border-2 rounded"
+            key={`name-${index}`}
+            onClick={() => handleFilterButtonClick(name)}
+            className={`border-black border-2 rounded ${
+              selectedFilters.includes(name) ? "bg-gray-300" : ""
+            }`}
           >
-            <li key={index}>{name}</li>
+            {name}
           </button>
         ))}
-      </ul>
-      <ul>
         {shasi.map((shasis, index) => (
           <button
-            onClick={handleFilterButtonClick}
-            className=" border-black border-2 rounded"
+            key={`shasi-${index}`}
+            onClick={() => handleFilterButtonClick(shasis)}
+            className={`border-black border-2 rounded ${
+              selectedFilters.includes(shasis) ? "bg-gray-300" : ""
+            }`}
           >
-            <li key={index}>{shasis}</li>
+            {shasis}
           </button>
         ))}
-      </ul>
+      </div>
+      <div className="truck-list">
+        {filteredTrucks.map((truck) => (
+          <TruckCard
+            key={truck.id}
+            name={truck.name}
+            model={truck.model}
+            hr={truck.hr}
+            shasi={truck.shasi}
+            hm={truck.hm}
+            tank={truck.tank}
+            price={truck.price}
+          />
+        ))}
+      </div>
     </div>
   );
 }
