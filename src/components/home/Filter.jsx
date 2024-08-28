@@ -71,93 +71,95 @@ export default function FilterAndCards() {
 
   return (
     <div>
-      <div>
-        <button
-          onClick={() => handleFilterButtonClick("up to 200k")}
-          className={`border-black border-2 rounded ${
-            selectedFilters.includes("up to 200k") ? "bg-gray-300" : ""
-          }`}
-        >
-          Up to $200k
-        </button>
-        <button
-          onClick={() => handleFilterButtonClick("from 400hr")}
-          className={`border-black border-2 rounded ${
-            selectedFilters.includes("from 400hr") ? "bg-gray-300" : ""
-          }`}
-        >
-          from 400 hr
-        </button>
-        <button
-          onClick={() => handleFilterButtonClick("from 500hr")}
-          className={`border-black border-2 rounded ${
-            selectedFilters.includes("from 500hr") ? "bg-gray-300" : ""
-          }`}
-        >
-          from 500 hr
-        </button>
-        <button
-          onClick={() => handleFilterButtonClick("from 600hr")}
-          className={`border-black border-2 rounded ${
-            selectedFilters.includes("from 600hr") ? "bg-gray-300" : ""
-          }`}
-        >
-          from 600 hr
-        </button>
-        <button
-          onClick={() => handleFilterButtonClick("from 2000Hm")}
-          className={`border-black border-2 rounded ${
-            selectedFilters.includes("from 2000Hm") ? "bg-gray-300" : ""
-          }`}
-        >
-          from 2000 Hm
-        </button>
-        <button
-          onClick={() => handleFilterButtonClick("from 3000Hm")}
-          className={`border-black border-2 rounded ${
-            selectedFilters.includes("from 3000Hm") ? "bg-gray-300" : ""
-          }`}
-        >
-          from 3000 Hm
-        </button>
-        <button
-          onClick={() => handleFilterButtonClick("from 800l")}
-          className={`border-black border-2 rounded ${
-            selectedFilters.includes("from 800l") ? "bg-gray-300" : ""
-          }`}
-        >
-          from 800 L
-        </button>
-        <button
-          onClick={() => handleFilterButtonClick("from 1100l")}
-          className={`border-black border-2 rounded ${
-            selectedFilters.includes("from 1100l") ? "bg-gray-300" : ""
-          }`}
-        >
-          from 1100 L
-        </button>
-        {names.map((name, index) => (
+      <div className="flex justify-center">
+        <div className="flex justify-center flex-wrap w-[70%]">
           <button
-            key={`name-${index}`}
-            onClick={() => handleFilterButtonClick(name)}
-            className={`border-black border-2 rounded ${
-              selectedFilters.includes(name) ? "bg-gray-300" : ""
+            onClick={() => handleFilterButtonClick("up to 200k")}
+            className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+              selectedFilters.includes("up to 200k") ? "bg-gray-300" : ""
             }`}
           >
-            {name}
+            Up to $200k
           </button>
-        ))}
-        {shasi.map((shasis, index) => (
           <button
-            key={`shasi-${index}`}
-            onClick={() => handleFilterButtonClick(shasis)}
-            className={`border-black border-2 rounded ${
-              selectedFilters.includes(shasis) ? "bg-gray-300" : ""
+            onClick={() => handleFilterButtonClick("from 400hr")}
+            className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+              selectedFilters.includes("from 400hr") ? "bg-gray-300" : ""
             }`}
           >
-            {shasis}
+            from 400 hr
           </button>
-        ))}
+          <button
+            onClick={() => handleFilterButtonClick("from 500hr")}
+            className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+              selectedFilters.includes("from 500hr") ? "bg-gray-300" : ""
+            }`}
+          >
+            from 500 hr
+          </button>
+          <button
+            onClick={() => handleFilterButtonClick("from 600hr")}
+            className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+              selectedFilters.includes("from 600hr") ? "bg-gray-300" : ""
+            }`}
+          >
+            from 600 hr
+          </button>
+          <button
+            onClick={() => handleFilterButtonClick("from 2000Hm")}
+            className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+              selectedFilters.includes("from 2000Hm") ? "bg-gray-300" : ""
+            }`}
+          >
+            from 2000 Hm
+          </button>
+          <button
+            onClick={() => handleFilterButtonClick("from 3000Hm")}
+            className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+              selectedFilters.includes("from 3000Hm") ? "bg-gray-300" : ""
+            }`}
+          >
+            from 3000 Hm
+          </button>
+          <button
+            onClick={() => handleFilterButtonClick("from 800l")}
+            className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+              selectedFilters.includes("from 800l") ? "bg-gray-300" : ""
+            }`}
+          >
+            from 800 L
+          </button>
+          <button
+            onClick={() => handleFilterButtonClick("from 1100l")}
+            className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+              selectedFilters.includes("from 1100l") ? "bg-gray-300" : ""
+            }`}
+          >
+            from 1100 L
+          </button>
+          {names.map((name, index) => (
+            <button
+              key={`name-${index}`}
+              onClick={() => handleFilterButtonClick(name)}
+              className={`border-black border-2 rounded-md mr-2 mt-2 p-1 ${
+                selectedFilters.includes(name) ? "bg-gray-300" : ""
+              }`}
+            >
+              {name}
+            </button>
+          ))}
+          {shasi.map((shasis, index) => (
+            <button
+              key={`shasi-${index}`}
+              onClick={() => handleFilterButtonClick(shasis)}
+              className={`border-black border-2 rounded-md  mr-2 mt-2 p-1 ${
+                selectedFilters.includes(shasis) ? "bg-gray-300" : ""
+              }`}
+            >
+              {shasis}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="truck-list">
         {filteredTrucks.map((truck) => (
