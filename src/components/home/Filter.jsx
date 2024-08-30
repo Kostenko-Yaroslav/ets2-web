@@ -161,7 +161,7 @@ export default function FilterAndCards() {
           ))}
         </div>
       </div>
-      <div className="truck-list">
+      <div className="flex flex-wrap justify-center mt-20">
         {filteredTrucks.map((truck) => (
           <TruckCard
             key={truck.id}
@@ -172,6 +172,7 @@ export default function FilterAndCards() {
             hm={truck.hm}
             tank={truck.tank}
             price={truck.price}
+            img={truck.img}
           />
         ))}
       </div>
