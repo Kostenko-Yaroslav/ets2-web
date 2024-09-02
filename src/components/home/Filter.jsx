@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TruckCard from "./TruckCard";
+import { useTranslation, Trans } from "react-i18next";
 
 export default function FilterAndCards() {
   const [trucks, setTrucks] = useState([]);
@@ -69,6 +70,8 @@ export default function FilterAndCards() {
     }
   }, [selectedFilters, trucks]);
 
+  useTranslation();
+
   return (
     <div>
       <div className="flex justify-center">
@@ -79,7 +82,7 @@ export default function FilterAndCards() {
               selectedFilters.includes("up to 200k") ? "bg-gray-300" : ""
             }`}
           >
-            Up to $200k
+            <Trans i18nKey="part7"></Trans>
           </button>
           <button
             onClick={() => handleFilterButtonClick("from 400hr")}
@@ -87,7 +90,7 @@ export default function FilterAndCards() {
               selectedFilters.includes("from 400hr") ? "bg-gray-300" : ""
             }`}
           >
-            from 400 hr
+            <Trans i18nKey="part8"></Trans>
           </button>
           <button
             onClick={() => handleFilterButtonClick("from 500hr")}
@@ -95,7 +98,7 @@ export default function FilterAndCards() {
               selectedFilters.includes("from 500hr") ? "bg-gray-300" : ""
             }`}
           >
-            from 500 hr
+            <Trans i18nKey="part9"></Trans>
           </button>
           <button
             onClick={() => handleFilterButtonClick("from 600hr")}
@@ -103,7 +106,7 @@ export default function FilterAndCards() {
               selectedFilters.includes("from 600hr") ? "bg-gray-300" : ""
             }`}
           >
-            from 600 hr
+            <Trans i18nKey="part10"></Trans>
           </button>
           <button
             onClick={() => handleFilterButtonClick("from 2000Hm")}
@@ -111,7 +114,7 @@ export default function FilterAndCards() {
               selectedFilters.includes("from 2000Hm") ? "bg-gray-300" : ""
             }`}
           >
-            from 2000 Hm
+            <Trans i18nKey="part11"></Trans>
           </button>
           <button
             onClick={() => handleFilterButtonClick("from 3000Hm")}
@@ -119,7 +122,7 @@ export default function FilterAndCards() {
               selectedFilters.includes("from 3000Hm") ? "bg-gray-300" : ""
             }`}
           >
-            from 3000 Hm
+            <Trans i18nKey="part12"></Trans>
           </button>
           <button
             onClick={() => handleFilterButtonClick("from 800l")}
@@ -127,7 +130,7 @@ export default function FilterAndCards() {
               selectedFilters.includes("from 800l") ? "bg-gray-300" : ""
             }`}
           >
-            from 800 L
+            <Trans i18nKey="part13"></Trans>
           </button>
           <button
             onClick={() => handleFilterButtonClick("from 1100l")}
@@ -135,7 +138,7 @@ export default function FilterAndCards() {
               selectedFilters.includes("from 1100l") ? "bg-gray-300" : ""
             }`}
           >
-            from 1100 L
+            <Trans i18nKey="part14"></Trans>
           </button>
           {names.map((name, index) => (
             <button
