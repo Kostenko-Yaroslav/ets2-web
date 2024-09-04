@@ -28,6 +28,8 @@ i18n
           part12: "from 3000Hm",
           part13: "from 800l",
           part14: "from 1100 L",
+          part15: "Select Language",
+          part16: "Close",
         },
       },
       ua: {
@@ -46,6 +48,8 @@ i18n
           part12: " Від 3000 крутного моменту ",
           part13: "Від 800 літрів",
           part14: "Від 1100 літрів",
+          part15: "Оберіть мову",
+          part16: "Закрити",
         },
       },
     },
